@@ -9,4 +9,20 @@ public class Library {
         Object x = null;
         return x.hashCode() == 0;
     }
+
+    public enum SomeEnum {
+        A,
+        B,
+    }
+
+    public int exhaustiveSwitch(SomeEnum e) {
+        String s = null;
+        switch (e) {
+            case A -> {
+                s = "A";
+            }
+            case B -> throw new RuntimeException();
+        }
+        return s.length();
+    }
 }

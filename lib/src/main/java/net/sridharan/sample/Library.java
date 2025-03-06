@@ -3,10 +3,26 @@
  */
 package net.sridharan.sample;
 
-public class Library {
-    public boolean someLibraryMethod() {
+import org.jspecify.annotations.Nullable;
 
-        Object x = null;
-        return x.hashCode() == 0;
+import java.util.concurrent.CompletableFuture;
+
+public class Library {
+    @Nullable String nullableMemberField;
+
+    public int someLibraryMethod(@Nullable String nullableFunctionArgument) {
+        if (nullableFunctionArgument != null) {
+            var future = CompletableFuture.completedFuture("foo").thenApply(foo -> {
+                return nullableFunctionArgument.length();
+            });
+            return future.join();
+        }
+        if (nullableMemberField != null) {
+            var future = CompletableFuture.completedFuture("foo").thenApply(foo -> {
+                return nullableMemberField.length();
+            });
+            return future.join();
+        }
+        return 0;
     }
 }
